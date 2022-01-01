@@ -1,7 +1,7 @@
 let isAnagram = true;
 
-anagram = [..."cat"];
-testWord = [..."act"];
+let anagram = [..."cat"];
+let testWord = [..."act"];
 
 function checkAnagram() {
   anagram.forEach((e) => {
