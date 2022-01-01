@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: azure;
+}
+
+#board {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+
+#restartbtn {
+  width: 100px;
+  padding: 10px;
+  font-size: x-large;
+  margin: 30px;
+}
+
+.cell {
+  background-color: white;
+  border: solid black 2px;
+}
