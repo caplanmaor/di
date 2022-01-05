@@ -38,11 +38,11 @@ function createGif() {
   catalog.appendChild(gifCard);
 }
 
-//removers
+//remove all
 document.getElementById("removeall").addEventListener("click", (e) => {
   e.preventDefault();
   cards = document.getElementsByClassName("gifcard");
   for (let card of cards) {
-    card.remove();
+    card.style.display = "none";
   }
 });
