@@ -1,0 +1,12 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  font-size: x-large;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}

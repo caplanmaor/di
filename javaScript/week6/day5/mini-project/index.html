@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form>
+      <label for="name">Enter name (upper and lowercase letters): </label>
+      <input type="text" name="name" id="name" required pattern="[A-Za-z]+" />
+      <br />
+      <label for="description"
+        >Enter description (upper and lowercase letters):
+      </label>
+      <input
+        type="text"
+        name="description"
+        id="description"
+        required
+        pattern="[A-Za-z]+"
+      />
+      <br />
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" />
+      <br />
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" />
+      <br />
+      <input
+        type="button"
+        id="submit-btn"
+        onclick="window.location.href='tasks.html';"
+        value="Add task"
+      />
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>
