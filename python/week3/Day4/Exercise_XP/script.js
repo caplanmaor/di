@@ -56,7 +56,8 @@ switch (true) {
     break;
   case users.length == 2:
     console.log(`${users[0]} and ${users[1]} are online`);
-  case users.length > 2:
+    break;
+  default:
     console.log(
       `${users[0]} and ${users[1]} are online as well as ${
         users.length - 2
