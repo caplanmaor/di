@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: yellow;
+      }
+      #animate {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+
+        background-color: red;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <p><button onclick="myMove()">Click Me</button></p>
+    <div id="container">
+      <div id="animate"></div>
+    </div>
+    <br />
+
+    <div class="empty"><div class="fill" draggable="true"></div></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

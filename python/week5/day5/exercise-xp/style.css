@@ -1,0 +1,31 @@
+.fill {
+  background-color: blueviolet;
+  height: 150px;
+  width: 150px;
+  position: relative;
+  cursor: pointer;
+  left: 5px;
+  top: 5px;
+}
+
+.empty {
+  display: inline-block;
+  height: 160px;
+  width: 160px;
+  margin: 10px;
+  border: 3px salmon solid;
+  background-color: seashell;
+}
+
+.hold {
+  border: solid #ccc 4px;
+}
+
+.hovered {
+  background-color: lightgray;
+  border-style: dashed;
+}
+
+.invisible {
+  display: none;
+}
