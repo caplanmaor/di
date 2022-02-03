@@ -28,18 +28,9 @@ if len(inputText) == 10:
     # first and last
     print(inputText[0])
     print(inputText[9])
-    #
-    print(inputText[0])
-    print(inputText[0] + inputText[1])
-    print(inputText[0] + inputText[1] + inputText[2])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4] + inputText[5])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4] + inputText[5] + inputText[6])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4] + inputText[5] + inputText[6]+ inputText[7])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4] + inputText[5] + inputText[6]+ inputText[7] + inputText[8])
-    print(inputText[0] + inputText[1] + inputText[2] + inputText[3] + inputText[3] + inputText[4] + inputText[5] + inputText[6]+ inputText[7] + inputText[8] + inputText[9])
+    # characters one by one
+    for i in range(len(inputText)):
+        print(inputText[0:i+1])
     inputList = list(inputText)
     random.shuffle(inputList)
     print("".join(inputList))
