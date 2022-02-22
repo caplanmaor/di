@@ -1,6 +1,5 @@
  # exercise 1
 
-from re import A
 import random
 
 
