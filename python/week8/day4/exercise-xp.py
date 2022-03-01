@@ -65,4 +65,15 @@
 
 # exercise 3
 
+class PetDog(Dog):
+    def __init__(self, name, age, weight, trained = False):
+        super().__init__(self, trained)
+        self.name = name
+        self.age = age
+    
+    def train(self):
+        self.bark()
+        self.trained = True
 
+adrian = PetDong("Adri", 3, 15)
+print(adrian.train())
