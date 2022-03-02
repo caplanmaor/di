@@ -1,0 +1,11 @@
+CREATE TABLE bikes(
+   id SERIAL PRIMARY KEY,
+   img VARCHAR,
+	name VARCHAR,
+	price INTEGER
+);
+
+INSERT INTO bikes (img, name, price) VALUES
+('https://dosnoventabikes.com/wp-content/uploads/2020/10/DSNV_LA_Black_B_01_Flat.jpg', 'DOSNOVENTA®02 LA / JET BLACK BIKE', 2890);
+
+SELECT * FROM bikes

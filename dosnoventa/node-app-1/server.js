@@ -38,7 +38,7 @@ app.get("/bikes", (req, res) => {
 
 async function createBike(bike) {
   let { image, name, price } = bike.data;
-  console.log(bike.data);
+  // console.log(bike.data);
   const pool = new Pool(credentials);
   const res = await pool.query(
     `INSERT INTO bikes (img, name, price) VALUES ($1, $2, $3)`,
@@ -54,4 +54,22 @@ async function createBike(bike) {
 
 app.post("/createBike", (req, res) => {
   createBike(req.body);
+});
+
+async function deleteBike(name) {
+  bikeName = name.data;
+  const pool = new Pool(credentials);
+  const res = await pool.query(
+    `DELETE FROM bikes WHERE name=$1 `,
+    [bikeName],
+    (err, results) => {
+      console.log(err);
+      console.log(results);
+    }
+  );
+  await pool.end();
+}
+
+app.post("/deleteBike", (req, res) => {
+  deleteBike(req.body);
 });

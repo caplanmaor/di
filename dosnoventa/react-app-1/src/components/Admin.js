@@ -1,7 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 const axios = require("axios");
 
 function Admin() {
+  //create bike
   const [formData, setFormData] = React.useState({
     image: "",
     name: "",
@@ -26,9 +28,22 @@ function Admin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.dir(formData);
     saveForm();
   };
+
+  // bikes for select
+  const [data, setData] = React.useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3001/bikes");
+      const bikesData = await response.json();
+      setData(bikesData);
+    };
+    fetchData();
+  }, []);
+
+  // select
 
   let [select, setSelect] = React.useState("select a bike");
 
@@ -36,17 +51,36 @@ function Admin() {
     setSelect(e.target.value);
   };
 
+  // remove
+
+  const deleteBike = () => {
+    axios
+      .post("http://localhost:3001/deleteBike", {
+        data: select,
+      })
+      .then(function (res) {
+        console.log(res);
+      });
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteBike();
+  };
+
   return (
-    <div>
+    <div className="admin">
       <h1>Admin Tools</h1>
       <h2>Remove Bikes</h2>
       <div>
-        <select onChange={handleSelectChange}>
-          <option value="a">a</option>
-        </select>
         <br />
-        <button>remove</button>
+        <select onChange={handleSelectChange}>
+          {data.map((data) => (
+            <option value={data.name}>{data.name}</option>
+          ))}
+        </select>
       </div>
+      <button onClick={handleDelete}>remove</button>
       <h2>Add Bikes</h2>
       <form onSubmit={handleSubmit}>
         <h3>bike image</h3>
