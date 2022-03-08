@@ -39,7 +39,41 @@ Family.born(name="maor", age="26", gender="male", is_child=False)
 print(Family.members)
 print(Family.is_18("maor"))
 Family.show_members()
+print("------")
 
 # exercise 2
 class TheIncredibles(Family):
-    def __init__(self):
+    members = [
+    {'name':'Michael','age':35,'gender':'Male','is_child':False, 'power': "flying", 'incredible_name':'superman'},
+    {'name':'Sarah','age':3,'gender':'Female','is_child':True, 'power': "strength", 'incredible_name':'hulk'}
+    ]
+
+    def __init__(self, members):
+        self.members = members
+
+    @staticmethod
+    def use_power(name):
+        for member in TheIncredibles.members:
+            if member["name"] == name:
+                if member["is_child"] == False:
+                    print(f'the power of {member["name"]} is {member["power"]}')
+                else:
+                    raise Exception('under 18 cant show power')
+
+    @staticmethod
+    def indredible_presentation():
+        for member in TheIncredibles.members:
+            print(f'''name: {member["name"]}
+age: {member["age"]}
+gender: {member["gender"]}
+is child: {member["is_child"]}
+power: {member["power"]}
+incredible name: {member["incredible_name"]}
+''')
+
+# TheIncredibles.use_power('Sarah')
+TheIncredibles.use_power('Michael')
+
+TheIncredibles.indredible_presentation()
+TheIncredibles.born(name="Jack", age="2", gender="male", is_child=True, power="unkown", incredible_name="baby")
+TheIncredibles.indredible_presentation()
