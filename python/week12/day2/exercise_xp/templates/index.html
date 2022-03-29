@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="POST">
+      {{ form.hidden_tag() }} {{ form.city_name.label }} {{
+      form.city_name(size=32) }} {{ form.city_country.label }} {{
+      form.city_country(size=32) }} {{ form.city_area.label }} {{
+      form.city_area(size=240) }} {{ form.number_inhabitants.label }} {{
+      form.number_inhabitants(size=240) }} {{ form.submit() }}
+    </form>
+  </body>
+</html>
