@@ -1,0 +1,29 @@
+CREATE TABLE items(
+   id SERIAL PRIMARY KEY,
+	name VARCHAR,
+	price INT
+);
+
+CREATE TABLE customers(
+   id SERIAL PRIMARY KEY,
+	first_name VARCHAR,
+	last_name VARCHAR
+);
+
+INSERT INTO items (name, price) VALUES ('small desk', 100);
+INSERT INTO items (name, price) VALUES ('large desk', 300);
+INSERT INTO items (name, price) VALUES ('fan', 80);
+
+INSERT INTO customers (first_name, last_name) VALUES ('Greg', 'Jones')
+INSERT INTO customers (first_name, last_name) VALUES ('Sandra', 'Jones')
+INSERT INTO customers (first_name, last_name) VALUES ('Scott', 'Scott')
+INSERT INTO customers (first_name, last_name) VALUES ('Trevor', 'Green')
+INSERT INTO customers (first_name, last_name) VALUES ('Melanie', 'Johnson')
+
+SELECT * FROM items
+SELECT * FROM items WHERE price > 80 
+SELECT * FROM items WHERE price <= 300
+SELECT * FROM customers WHERE last_name = 'Smith'
+the outcome will be nothing
+SELECT * FROM customers WHERE last_name = 'Jones'
+SELECT * FROM customers WHERE last_name != 'Scott'

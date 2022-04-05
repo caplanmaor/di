@@ -1,0 +1,4 @@
+-- SELECT COUNT(actor_id) FROM actor 
+-- the answer is 200
+-- INSERT INTO actor (first_name, last_name) VALUES ('', 'caplan')
+-- it worked
