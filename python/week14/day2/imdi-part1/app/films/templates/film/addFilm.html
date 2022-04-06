@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>add a film</h1>
+    <form method="POST">
+      {{ form.title.label }} : {{ form.title()|safe }} <br />
+      {{ form.hidden_tag() }} <br />
+      {{ form.release_date.label }} : {{ form.release_date()|safe }} <br />
+      {{ form.created_in_country.label }} : {{ form.created_in_country()|safe }}
+      <br />
+      {{ form.avilable_in_countries.label }} : {{
+      form.avilable_in_countries()|safe }}
+      <br />
+      {{ form.category.label }} : {{ form.category()|safe }}
+      <br />
+      {{ form.director.label }} : {{ form.director()|safe }}
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
