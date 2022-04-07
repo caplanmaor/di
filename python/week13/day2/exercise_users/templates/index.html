@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+  </head>
+  <body>
+    {% for message in get_flashed_messages() %}
+    <h1>{{ message }}</h1>
+    {% endfor %}
+    <h3>all the info of all the users</h3>
+    <div>{{all_users}}</div>
+    <h3>Roscoeview users</h3>
+    <div>{{Roscoeview}}</div>
+    <h3>first five users</h3>
+    <div>{{five}}</div>
+    <h3>users whos zipcode starts with 5</h3>
+    <div>{{zipcode}}</div>
+  </body>
+</html>
