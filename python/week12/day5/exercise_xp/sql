@@ -1,0 +1,45 @@
+-- SELECT * FROM items ORDER BY price 
+-- SELECT * FROM items WHERE price >= 80 ORDER BY price DESC
+-- SELECT first_name,last_name FROM customers ORDER BY first_name LIMIT 3 
+-- SELECT last_name FROM customers ORDER BY last_name DESC
+
+	-- CREATE TABLE purchases(
+	--    id SERIAL PRIMARY KEY,
+	-- 	customer_id INT REFERENCES customers(id),
+	-- 	item_id INT REFERENCES items(id),
+	-- 	quantity_purchased INT
+	-- )
+
+	-- INSERT INTO purchases (customer_id, item_id, quantity_purchased) VALUES
+	-- ((SELECT id FROM customers WHERE first_name = 'Scott' AND last_name = 'Scott'), (SELECT id FROM items WHERE name = 'fan'), 1)
+	
+	-- INSERT INTO purchases (customer_id, item_id, quantity_purchased) VALUES
+	-- ((SELECT id FROM customers WHERE first_name = 'Melanie' AND last_name = 'Johnson'), (SELECT id FROM items WHERE name = 'large desk'), 10)
+	
+	-- INSERT INTO purchases (customer_id, item_id, quantity_purchased) VALUES
+	-- ((SELECT id FROM customers WHERE first_name = 'Greg' AND last_name = 'Jones'), (SELECT id FROM items WHERE name = 'small desk'), 2)
+	
+	-- SELECT * FROM purchases
+	-- this is not very usefull
+	-- SELECT * FROM purchases INNER JOIN customers ON purchases.customer_id = customers.id 
+    -- SELECT * FROM purchases INNER JOIN customers ON purchases.customer_id = customers.id WHERE customer_id = 5
+    -- SELECT * FROM purchases INNER JOIN items ON purchases.item_id = items.id WHERE items.name = 'large desk' OR items.name = 'small desk'
+
+    -- SELECT customers.first_name, customers.last_name, items.name FROM purchases INNER JOIN items ON purchases.item_id = items.id INNER JOIN customers ON purchases.customer_id = customers.id 
+
+    -- INSERT INTO purchases (customer_id) VALUES (1)
+    -- it works it just says null in item id
+
+-- SELECT * FROM customer
+-- SELECT CONCAT(first_name,' ',last_name) AS full_name FROM customer 
+-- SELECT DISTINCT create_date FROM customer 
+-- SELECT * FROM customer ORDER BY first_name DESC
+-- SELECT film_id,title,description,release_year,rental_rate FROM film ORDER BY rental_rate
+-- SELECT address, phone FROM address WHERE district = 'Texas'
+-- SELECT * FROM film WHERE film_id = 15 OR film_id = 50
+-- SELECT film_id, title, description, length, rental_rate FROM film WHERE title = 'Orange Grapes'
+-- SELECT film_id, title, description, length, rental_rate FROM film WHERE title LIKE 'Or%'
+-- SELECT * FROM film ORDER BY replacement_cost LIMIT 10
+-- SELECT amount,payment_date,payment.customer_id FROM payment INNER JOIN customer ON payment.customer_id = customer.customer_id ORDER BY customer_id LIMIT 10
+-- SELECT * FROM film WHERE film_id NOT IN (SELECT film_id FROM inventory)
+-- SELECT city, country FROM city INNER JOIN country ON city.country_id = country.country_id
