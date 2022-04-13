@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet</title>
+    <link rel="stylesheet" href="../static/pets-style.css" />
+  </head>
+  <body>
+    {% block content %}
+    <div href="#" class="pet-card">
+      <img class="pet-img" src="{{pet.image}}" />
+      <p>name: {{pet.name}}</p>
+      <p>gender: {{pet.gender}}</p>
+      <p>breed: {{pet.breed}}</p>
+      <p>date_of_birth: {{pet.date_of_birth}}</p>
+      <p>details: {{pet.details}}</p>
+      <p>price: {{pet.price}}$</p>
+      <button>
+        <a
+          style="text-decoration: blink; color: green; font-size: xx-large"
+          href="http://127.0.0.1:5000/add_pet/{{pet.id}}"
+          >Add to Cart</a
+        >
+      </button>
+    </div>
+    {% endblock %}
+  </body>
+</html>
