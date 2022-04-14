@@ -18,6 +18,27 @@ class Cart(db.Model):
         db.session.add(cart)
         db.session.commit()
 
+    def get_cart():
+        cart = Cart.query.all()
+        all_pets = []
+        for pet in cart:
+            pet_id = pet.id
+            all_pets.append(pet_id)
+        return all_pets
+
+    def get_total():
+        cart = Cart.query.all()
+        all_pets = []
+        for pet in cart:
+            pet_id = pet.id
+            all_pets.append(pet_id)
+        total_price = 0
+        for id in all_pets:
+            pet = Pet.query.filter_by(id=id).first()
+            total_price += pet.price
+        return total_price
+
+
 class Pet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)

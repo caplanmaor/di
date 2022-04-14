@@ -19,7 +19,15 @@ def pets():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    pets = Cart.get_cart()
+    all_pets = []
+    for id in pets:
+        pet = Pet.query.filter_by(id=id).first()
+        pet_object = {}
+        pet_object.update({'id': pet.id, 'name': pet.name, 'gender': pet.gender, 'breed': pet.breed, 'date_of_birth': pet.date_of_birth, 'details': pet.details, 'price': pet.price, 'image': pet.image, 'cart': pet.cart})
+        all_pets.append(pet_object)
+    total_price = Cart.get_total()
+    return render_template('cart.html', pets = all_pets, total = total_price)
 
 @app.route('/pet/<id>')
 def pet(id):

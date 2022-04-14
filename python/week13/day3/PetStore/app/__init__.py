@@ -11,8 +11,8 @@ app.config['SECRET_KEY'] = random._urandom(56)
 os.system('export FLASK_APP=run.py')
 
 # Database Connection
-db_info = {'host': 'localhost',
-           'database': 'petstore',
+db_info = {'host': '172.18.0.2',
+           'database': 'postgres',
            'psw': 'postgres',
            'user': 'postgres',
            'port': '5432'}
