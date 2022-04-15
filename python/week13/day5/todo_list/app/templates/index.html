@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>To Do List</title>
+    <link rel="stylesheet" href="../static/style.css">
   </head>
   <body>
     <h1>add tasks</h1>
     <form method="POST">
       {{ form.hidden_tag() }} {{ form.details.label }} {{ form.details(size=32)
-      }}{{ form.submit() }}
+      }}
+      {{ form.image.label }} {{ form.image(size=32)}}
+      {{ form.submit() }}
     </form>
     <h1>tasks:</h1>
     {% for todo in tasks %} 
@@ -20,6 +23,7 @@
     <div class="todo">
     {%endif%}
       <h1>{{ todo.details }}</h1>
+      <img class="img" src={{ todo.image.url }} alt="">
       <button>
         <a href="http://127.0.0.1:5000/complete/{{todo.id}}">complete</a>
       </button>
