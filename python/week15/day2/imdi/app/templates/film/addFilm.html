@@ -9,17 +9,16 @@
   <body>
     <h1>add a film</h1>
     <form method="POST">
-      {{ form.title.label }} : {{ form.title()|safe }} <br />
       {{ form.hidden_tag() }} <br />
-      {{ form.release_date.label }} : {{ form.release_date()|safe }} <br />
+      {{ form.title.label }} : {{ form.title()|safe }} <br />
       {{ form.created_in_country.label }} : {{ form.created_in_country()|safe }}
       <br />
       {{ form.avilable_in_countries.label }} : {{
       form.avilable_in_countries()|safe }}
       <br />
-      {{ form.category.label }} : {{ form.category()|safe }}
+      {{ form.directors.label }} : {{ form.directors()|safe }}
       <br />
-      {{ form.director.label }} : {{ form.director()|safe }}
+      {{ form.categories.label }} : {{ form.categories()|safe }}
       <br />
       <input type="submit" value="Submit" />
     </form>

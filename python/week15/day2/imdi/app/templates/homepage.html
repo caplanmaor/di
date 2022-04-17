@@ -1,0 +1,39 @@
+{% extends "/partials/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <div>
+      <h1>home page</h1>
+      {% block content %} {% for film in films%}
+      <div class="film">
+        title:
+        <h2>{{film.title}}</h2>
+        made in countries:
+        <h4>{{film.country_made}}</h4>
+        avilable in countries:
+        <h4>
+          {% for country in film.avilable_countries %}{{country.name}}{% if not
+          loop.last %}, {% endif %} {% endfor %}
+        </h4>
+        directors:
+        <h4>
+          {% for director in film.directors %}{{director.first_name}}
+          {{director.last_name}}{% if not loop.last %}, {% endif %} {% endfor %}
+        </h4>
+        categories:
+        <h4>
+          {% for category in film.categories %}{{category.name}}{% if not
+          loop.last %}, {% endif %} {% endfor %}
+        </h4>
+      </div>
+      {%endfor%}
+    </div>
+    {% endblock %} {% include '/partials/navbar.html' %}
+  </body>
+</html>
