@@ -45,3 +45,16 @@ def add_director():
     else:
         print('valid failed')
     return render_template('/director/addDirector.html', form=add_director_formi)
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+
+@app.route('/profile/<user_id>', methods=['GET', 'POST'])
+def logout(user_id):

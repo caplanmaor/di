@@ -121,3 +121,10 @@ class Film_Category_J(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     film_id = db.Column(db.Integer, db.ForeignKey('film.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64))
+    password = db.Column(db.String(64))
+    name = db.Column(db.String(64))

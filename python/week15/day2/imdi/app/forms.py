@@ -5,6 +5,7 @@ from wtforms.validators import InputRequired, Length
 from app.models import Film
 from flask import Flask
 from app import db
+import flask_login
 
 
 class AddFilmForm(FlaskForm):
