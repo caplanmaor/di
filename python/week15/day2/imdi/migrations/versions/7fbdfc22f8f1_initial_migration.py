@@ -1,8 +1,8 @@
 """Initial migration.
 
-Revision ID: f7bcb348cd5e
+Revision ID: 7fbdfc22f8f1
 Revises: 
-Create Date: 2022-04-17 16:10:03.158973
+Create Date: 2022-04-21 14:59:04.789887
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f7bcb348cd5e'
+revision = '7fbdfc22f8f1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,6 +33,14 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('first_name', sa.String(length=64), nullable=True),
     sa.Column('last_name', sa.String(length=64), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('user',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('email', sa.String(length=64), nullable=True),
+    sa.Column('password', sa.String(length=200), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=True),
+    sa.Column('is_admin', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('film',
@@ -76,6 +84,7 @@ def downgrade():
     op.drop_table('film__country_J')
     op.drop_table('film__category_J')
     op.drop_table('film')
+    op.drop_table('user')
     op.drop_table('director')
     op.drop_table('country')
     op.drop_table('category')

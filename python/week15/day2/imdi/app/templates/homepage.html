@@ -10,7 +10,8 @@
   <body>
     <div>
       <h1>home page</h1>
-      {% block content %} {% for film in films%}
+      {% block content %} {% if current_user.is_authenticated %} {% for film in
+      films%}
       <div class="film">
         title:
         <h2>{{film.title}}</h2>
@@ -34,6 +35,8 @@
       </div>
       {%endfor%}
     </div>
-    {% endblock %} {% include '/partials/navbar.html' %}
+    {%else%}
+    <h1>please log in to view the films</h1>
+    {%endif%} {% endblock %} {% include '/partials/navbar.html' %}
   </body>
 </html>

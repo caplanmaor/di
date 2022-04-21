@@ -1,4 +1,6 @@
 from app import db
+import flask_login
+from app import login_mngr
 
 class Film(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -123,8 +125,13 @@ class Film_Category_J(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
 
-class User(db.Model):
+class User(flask_login.UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64))
-    password = db.Column(db.String(64))
+    password = db.Column(db.String(200))
     name = db.Column(db.String(64))
+    is_admin = db.Column(db.Boolean, unique=False, default=False)
+
+    @login_mngr.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))

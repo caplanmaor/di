@@ -1,0 +1,22 @@
+{% extends "/partials/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+  </head>
+  <body>
+    {% block content %}
+    <h1>Log In</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }} <br />
+      {{ form.username.label }} : {{ form.username()|safe }} <br />
+      {{ form.password.label }} : {{ form.password()|safe }}
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+    {%endblock%}{% include '/partials/navbar.html' %}
+  </body>
+</html>
