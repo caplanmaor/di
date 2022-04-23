@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+  <body>
+    {%for coin in coins%}
+    <div class="coin">
+      <h3>name: {{coin.name}}</h3>
+      <h3>symbol: {{coin.symbol}}</h3>
+      <h3>first made: {{coin.first_historical_data}}</h3>
+      <h3>last changed: {{coin.last_historical_data}}</h3>
+      <a href="http://127.0.0.1:5000/specifics/{{coin.symbol}}">DETAILS</a>
+    </div>
+    {%endfor%}
+  </body>
+</html>

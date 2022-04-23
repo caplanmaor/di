@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details</title>
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+  <body>
+    <div class="details">
+      <h4>website url: {{details[symbol][0]['urls']['website'][0]}}</h4>
+      <img src={{details[symbol][0]['logo']}}>
+      <h1>
+        <a href="http://127.0.0.1:5000/save/{{symbol}}">save to user</a>
+      </h1>
+      <h1>
+        <a href="http://127.0.0.1:5000/email/{{symbol}}"
+          >get email with details</a
+        >
+      </h1>
+      <h4>name: {{details[symbol][0]['name']}}</h4>
+      <h4>symbol: {{symbol}}</h4>
+      <p>description: {{details[symbol][0]['description']}}</p>
+      <h4>date added: {{details[symbol][0]['date_added']}}</h4>
+      <h4>tags: {{details[symbol][0]['tags']}}</h4>
+    </div>
+  </body>
+</html>
