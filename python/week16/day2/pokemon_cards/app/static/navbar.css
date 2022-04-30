@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  /* position: fixed; */
+  flex-direction: row;
+  background-color: azure;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+  border-bottom-style: none;
+}
+
+.navbar * {
+  text-decoration: none;
+  color: black;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  background-color: azure;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.profile {
+  position: absolute;
+  left: 10px;
+}

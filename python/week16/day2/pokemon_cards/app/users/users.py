@@ -14,6 +14,7 @@ users_bp = Blueprint('users_bp',__name__,
 def login():
     login_formi = LogInForm()
     if login_formi.validate_on_submit():
+        logout_user()
         username = login_formi.username.data
         password = login_formi.password.data
         user = Users.query.filter_by(name=username).first()        
@@ -22,6 +23,7 @@ def login():
             return 'wrong password or username doesnt exist'
         # log in
         login_user(user, remember=True)
+        return redirect(url_for('profiles_bp.display'))
     return render_template('login.html', form=login_formi)
 
 @users_bp.route('/signup', methods=['GET', 'POST'])
@@ -45,5 +47,10 @@ def signup():
         user = Users(email=email, name=username, password=generate_password_hash(password1, method='sha256'))
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('/users/login'))
+        return redirect(url_for('users_bp.login'))
     return render_template('signup.html', form=signup_formi)
+
+@users_bp.route('/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return redirect(url_for('users_bp.login'))

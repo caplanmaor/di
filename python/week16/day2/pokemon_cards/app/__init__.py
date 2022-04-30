@@ -6,11 +6,12 @@ from flask_migrate import Migrate
 import flask_login
 
 
+
 # Flask Object
 app = Flask(__name__)
 app.config['SECRET_KEY'] = random._urandom(56)
 app.config['DEBUG'] = True
-os.system('$env:FLASK_ENV = "development"')
+os.system('export FLASK_ENV=development')
 
 
 
@@ -19,11 +20,11 @@ login_manager = flask_login.LoginManager(app)
 
 
 # Database Connection
-db_info = {'host': 'localhost',
+db_info = {'host': '172.18.0.3',
            'database': 'pokemon_cards',
            'psw': 'postgres',
            'user': 'postgres',
-           'port': '5432'}
+           'port': '5433'}
 app.config[
     'SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_info['user']}:{db_info['psw']}@{db_info['host']}/{db_info['database']}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,9 +37,13 @@ migrate = Migrate(app, db)
 from app.users.users import users_bp
 app.register_blueprint(users_bp, url_prefix='/users')
 
+from app.profiles.profiles import profiles_bp
+app.register_blueprint(profiles_bp, url_prefix='/profiles')
+
+from app.forum.forum import forum_bp
+app.register_blueprint(forum_bp, url_prefix='/forum')
 
 from app import models
-
 
 def create_app():
     db.init_app(app)
@@ -47,3 +52,8 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return models.Users.query.get(int(user_id))
+
+try:
+    models.Pokemons.populate_db()
+except:
+    print('cant populate db')
