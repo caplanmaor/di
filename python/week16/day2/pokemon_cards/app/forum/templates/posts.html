@@ -1,6 +1,7 @@
-{% include 'navbar.html' %}
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
+  {%block content%}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,25 +13,28 @@
     />
   </head>
   <body>
-    {%if current_user.name%}
-    <h1>Create a post</h1>
-    <form method="POST">
-      {{ form.hidden_tag() }} <br />
-      {{ form.title.label }} : {{ form.title()|safe }} <br />
-      {{ form.body.label }} : {{ form.body()|safe }}
-      <br />
-      <input type="submit" value="Submit" />
-    </form>
+    <div class="post">
+      <h1>Create a post</h1>
+      <form method="POST">
+        {{ form.hidden_tag() }} <br />
+        {{ form.title.label }} : {{ form.title()|safe }} <br />
+        {{ form.body.label }} : {{ form.body()|safe }}
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
     <h1>Posts</h1>
 
-    {%for post in posts%}
-    <div class="post">
-      <h3>{{post.title}}</h3>
-      <h4>{{post.body}}</h4>
-      <h4>posted by: {{post.user}}</h4>
+    <div class="posts">
+      {%for post in posts%}
+
+      <div class="post">
+        <h3>{{post.title}}</h3>
+        <p>{{post.body}}</p>
+        <p>posted by: {{post.user}}</p>
+      </div>
+      {%endfor%}
     </div>
-    {%endfor%} {%else%}
-    <h1>please log in first to use the forum</h1>
-    {%endif%}
+    {%endblock%}
   </body>
 </html>

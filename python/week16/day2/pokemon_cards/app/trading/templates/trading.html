@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  {%block content%}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trading</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='cards.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('forum_bp.static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>create a listing:</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }} <br />
+      {{ form.currency.label }} : {{ form.currency()|safe }} <br />
+      <label for="pokemon">Pokemon</label>
+      {{form.pokemon(multiple="multiple")|safe}} {% if form.pokemon.errors %}{{
+      form.pokemon.errors[0] }}{% endif %}
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+    <h1>Market Listings:</h1>
+    <div class="posts">
+      {%for post in transactions%}
+      <div class="post">
+        <h2>{{post.currency}}$</h2>
+        <div class="card">
+          <h4>{{post.pokemons}}</h4>
+          <img class="img" src="{{post.img}}" />
+        </div>
+        {%if post.profile != current_user.name%}
+        <div class="buttons">
+          <button><a href="#">Trade</a></button>
+          <button><a href="#">Buy</a></button>
+        </div>
+        {%endif%}
+        <h4>posted by: {{post.profile}}</h4>
+      </div>
+      {%endfor%}
+    </div>
+    {%endblock%}
+  </body>
+</html>

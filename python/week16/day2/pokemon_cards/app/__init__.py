@@ -43,6 +43,9 @@ app.register_blueprint(profiles_bp, url_prefix='/profiles')
 from app.forum.forum import forum_bp
 app.register_blueprint(forum_bp, url_prefix='/forum')
 
+from app.trading.trading import trading_bp
+app.register_blueprint(trading_bp, url_prefix='/trading')
+
 from app import models
 
 def create_app():
@@ -53,7 +56,5 @@ def create_app():
     def load_user(user_id):
         return models.Users.query.get(int(user_id))
 
-try:
-    models.Pokemons.populate_db()
-except:
-    print('cant populate db')
+
+models.Pokemons.populate_db()

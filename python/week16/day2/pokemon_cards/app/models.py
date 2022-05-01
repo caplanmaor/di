@@ -10,17 +10,12 @@ class Users(flask_login.UserMixin, db.Model):
     email = db.Column(db.String(64))
     password = db.Column(db.String(200))
     is_admin = db.Column(db.Boolean, unique=False, default=False)
-    currency = db.column(db.Integer, default=0)
     user_profile = db.relationship("Profiles", backref=db.backref("user_profile", uselist=False))
-    posts = db.relationship('Posts', backref='user_posts', lazy='dynamic')
-    transactions = db.relationship('Transactions', backref='user_transactions', lazy='dynamic')
-    user_deck = db.relationship("Deck", backref=db.backref("user_deck", uselist=False))
 
-    def __init__(self,name,email,password,posts = tuple()):
+    def __init__(self,name,email,password):
         self.name = name
         self.email = email
         self.password = password
-        self.posts = posts
     
     @login_manager.user_loader
     def load_user(user_id):
@@ -29,35 +24,61 @@ class Users(flask_login.UserMixin, db.Model):
 class Pokemons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    img = db.Column(db.String(256))
+    in_deck = db.Column(db.Integer, db.ForeignKey('decks.id'))
     pokemon_profile = db.relationship("Profiles", backref=db.backref("profile_pokemons", uselist=False))
+    transactions_a = db.relationship("Transactions_a", backref='pokemon_transactions_a', lazy='dynamic')
+    transactions_b = db.relationship("Transactions_b", backref='pokemon_transactions_b', lazy='dynamic')
 
-    def __init__(self,name):
+    def __init__(self,name,img):
         self.name = name
+        self.img = img
 
     def populate_db():
-        session = Session()
-        url='https://pokeapi.co/api/v2/pokemon?limit=100'
-        response = session.get(url)
-        data = json.loads(response.text)
-        pokemons = data['results']
-        for pokemon in pokemons:
-            temp_pokemon = Pokemons.query.filter_by(name=pokemon['name']).first()
-            if not temp_pokemon:
-                pokemon_i = Pokemons(pokemon['name'])
-                db.session.add(pokemon_i)
-        db.session.commit()        
+        try:
+            session = Session()
+            url='https://pokeapi.co/api/v2/pokemon?limit=100'
+            response = session.get(url)
+            data = json.loads(response.text)
+            pokemons = data['results']
+            # check if pokemon already exists
+            for pokemon in pokemons:
+                temp_pokemon = Pokemons.query.filter_by(name=pokemon['name']).first()
+                if not temp_pokemon:
+                    name = pokemon['name']
+                    url = f'https://pokeapi.co/api/v2/pokemon/{name}'
+                    response = session.get(url)
+                    data = json.loads(response.text)
+                    img = data['sprites']['other']['official-artwork']['front_default']
+                    pokemon_i = Pokemons(name,img)
+                    db.session.add(pokemon_i)
+            db.session.commit()  
+        except:
+            print("could not populate")   
 
 class Profiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     currency = db.Column(db.Integer)
+    posts = db.relationship('Posts', backref='profile_posts', lazy='dynamic')
+    transactions_a = db.relationship('Transactions_a', backref='profile_transactions_a', lazy='dynamic')
+    transactions_b = db.relationship('Transactions_b', backref='profile_transactions_b', lazy='dynamic')
+    decks = db.relationship('Decks', backref='profile_decks', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemons.id'))
+
+    def __init__(self,currency,posts = tuple(),transactions_a = tuple(),transactions_b = tuple(),decks = tuple()):
+        self.currency = currency
+        self.posts = posts
+        self.transactions_a = transactions_a
+        self.transactions_b = transactions_b
+        self.decks = decks
+
 
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     body = db.Column(db.String(64))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
 
     def __init__(self,title,body):
         self.title = title
@@ -65,36 +86,28 @@ class Posts(db.Model):
 
 class Decks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    card_id = db.relationship('Cards', backref='deck_cards', lazy='dynamic')
+    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
+    pokemons = db.relationship('Pokemons', backref='deck_pokemons', lazy='dynamic')
 
-    def __init__(self,card_id = tuple()):
-        self.card_id = card_id
+    def __init__(self,pokemons = tuple()):
+        self.pokemons = pokemons
 
-class Cards(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    pokemon = db.relationship("Pokemons", backref=db.backref("card_pokemon", uselist=False))
-    transactions = db.relationship('Transactions', backref='card_transactions', lazy='dynamic')
-    deck_id = db.Column(db.Integer, db.ForeignKey('decks.id'))
-
-    def __init__(self,pokemon,transactions = tuple()):
-        self.pokemon = pokemon
-        self.transactions = transactions
-
-    def populate_cards():
-        session = Session()
-        pokemons = Pokemons.query.all()
-        for pokemon in pokemons:
-            card = Cards()
-            card.pokemon.append()
-            db.session.add(card)
-            db.session.commit()
             
-class Transactions(db.Model):
+class Transactions_a(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_a = db.Column(db.Integer, db.ForeignKey('users.id'))
-    cards_a = db.Column(db.Integer, db.ForeignKey('cards.id'))
-    currency_a = db.Column(db.Integer, default=0)
-    user_b = db.Column(db.Integer, db.ForeignKey('users.id'))
-    cards_b = db.Column(db.Integer, db.ForeignKey('cards.id'))
-    currency_b = db.Column(db.Integer, default=0)
+    profile = db.Column(db.Integer, db.ForeignKey('profiles.id'))
+    pokemons = db.Column(db.Integer, db.ForeignKey('pokemons.id'))
+    currency = db.Column(db.Integer, default=0)
+    trades = db.relationship('Trades', backref='trades_transactions_b', lazy='dynamic')
+
+class Transactions_b(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    profile = db.Column(db.Integer, db.ForeignKey('profiles.id'))
+    pokemons = db.Column(db.Integer, db.ForeignKey('pokemons.id'))
+    currency = db.Column(db.Integer, default=0)
+    trades = db.relationship('Trades', backref='trades_transactions_a', lazy='dynamic')
+
+class Trades(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    transaction_a_id = db.Column(db.Integer, db.ForeignKey('transactions_a.id'))
+    transaction_b_id = db.Column(db.Integer, db.ForeignKey('transactions_b.id'))

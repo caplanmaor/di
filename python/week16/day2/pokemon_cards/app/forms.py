@@ -3,7 +3,9 @@ from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,
                      RadioField, SelectMultipleField)
 from wtforms.validators import InputRequired, Length
 from wtforms.widgets import PasswordInput
-from app.models import Pokemons
+from app.models import Pokemons,Decks,Profiles,Users
+from app import db
+from flask_login import login_required,current_user
 
 
 class SignUpForm(FlaskForm):
@@ -47,3 +49,18 @@ class CreatePost(FlaskForm):
     body = TextAreaField('Post Body', 
                                 validators=[InputRequired(),
                                             Length(max=2000)])
+
+class CreateTransactionForm(FlaskForm):
+    pokemon = SelectMultipleField('pokemon', validators=[InputRequired()])
+    currency = TextAreaField('Currency',
+                                validators=[Length(max=200)])
+    def __init__(self, *args, **kwargs):
+        super(CreateTransactionForm, self).__init__(*args, **kwargs)
+        try:
+            pokemons = db.session.query(Pokemons).join(Decks, Pokemons.in_deck==Decks.id).join(Profiles, Decks.profile_id==Profiles.id).join(Users, Profiles.user_id==Users.id).filter_by(name=current_user.name).all()
+            names = []
+            for pokemon in pokemons:
+                names.append(pokemon.name)
+            self.pokemon.choices = names
+        except:
+            print('log in first')
