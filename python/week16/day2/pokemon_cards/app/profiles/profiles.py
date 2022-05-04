@@ -26,7 +26,7 @@ def create():
         deck = Decks()
         # adding 3 random pokemons to the deck
         for i in range(3):
-            print(i)
+            print(profile)
             num = random.randint(1,99)
             pokemon = Pokemons.query.filter_by(id=num).first()
             deck.pokemons.append(pokemon)
@@ -40,8 +40,10 @@ def create():
 @profiles_bp.route('/display', methods=['GET', 'POST'])
 def display():
     try:
+        profile = Profiles.query.join(Users, Profiles.user_id==Users.id).filter_by(name=current_user.name).first()
+        currency = profile.currency
         pokemon = db.session.query(Pokemons).join(Profiles, Pokemons.id == Profiles.pokemon_id).join(Users, Profiles.user_id == Users.id).filter_by(name=current_user.name).first()
         cards = db.session.query(Pokemons).join(Decks, Pokemons.in_deck == Decks.id).join(Profiles, Decks.profile_id == Profiles.id).join(Users, Profiles.user_id == Users.id).filter_by(name=current_user.name).all()
-        return render_template('display.html', pokemon_name=pokemon.name, cards=cards)
+        return render_template('display.html', pokemon_name=pokemon.name, cards=cards, currency=currency)
     except:
         return redirect(url_for('profiles_bp.create')) 

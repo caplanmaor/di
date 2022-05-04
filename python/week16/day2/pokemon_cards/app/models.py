@@ -56,6 +56,14 @@ class Pokemons(db.Model):
         except:
             print("could not populate")   
 
+class Decks(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
+    pokemons = db.relationship('Pokemons', backref='deck_pokemons', lazy='dynamic')
+
+    def __init__(self,pokemons = tuple()):
+        self.pokemons = pokemons
+
 class Profiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     currency = db.Column(db.Integer)
@@ -84,13 +92,7 @@ class Posts(db.Model):
         self.title = title
         self.body = body
 
-class Decks(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
-    pokemons = db.relationship('Pokemons', backref='deck_pokemons', lazy='dynamic')
 
-    def __init__(self,pokemons = tuple()):
-        self.pokemons = pokemons
 
             
 class Transactions_a(db.Model):
@@ -111,3 +113,4 @@ class Trades(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     transaction_a_id = db.Column(db.Integer, db.ForeignKey('transactions_a.id'))
     transaction_b_id = db.Column(db.Integer, db.ForeignKey('transactions_b.id'))
+    approved = db.Column(db.Boolean, unique=False, default=False)

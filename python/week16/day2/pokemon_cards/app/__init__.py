@@ -11,6 +11,7 @@ import flask_login
 app = Flask(__name__)
 app.config['SECRET_KEY'] = random._urandom(56)
 app.config['DEBUG'] = True
+
 os.system('export FLASK_ENV=development')
 
 
@@ -56,5 +57,7 @@ def create_app():
     def load_user(user_id):
         return models.Users.query.get(int(user_id))
 
-
+with app.app_context():
+    db.create_all()
+    
 models.Pokemons.populate_db()

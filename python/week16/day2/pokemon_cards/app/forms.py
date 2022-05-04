@@ -64,3 +64,18 @@ class CreateTransactionForm(FlaskForm):
             self.pokemon.choices = names
         except:
             print('log in first')
+
+class CreateTadeForm(FlaskForm):
+    pokemon = SelectMultipleField('pokemon', validators=[InputRequired()])
+    currency = TextAreaField('Currency',
+                                validators=[Length(max=200)])
+    def __init__(self, *args, **kwargs):
+        super(CreateTadeForm, self).__init__(*args, **kwargs)
+        try:
+            pokemons = db.session.query(Pokemons).join(Decks, Pokemons.in_deck==Decks.id).join(Profiles, Decks.profile_id==Profiles.id).join(Users, Profiles.user_id==Users.id).filter_by(name=current_user.name).all()
+            names = []
+            for pokemon in pokemons:
+                names.append(pokemon.name)
+            self.pokemon.choices = names
+        except:
+            print('log in first')

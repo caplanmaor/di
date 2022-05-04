@@ -15,6 +15,7 @@
   <body>
     {% if current_user.name %} {%if pokemon_name%}
     <h1>welcome {{current_user.name}} your main pokemon is {{pokemon_name}}</h1>
+    <h2>you currently have: {{currency}}$</h2>
     <h2>Personal Card Collection:</h2>
     <div class="cards">
       {%for pokemon in cards%}
